@@ -1,15 +1,16 @@
 # Docker
 
-(c) Bernd Öggl / Michael Kofler / Rheinwerk Verlag 2023
+(c) Bernd Öggl / Michael Kofler / Rheinwerk Verlag 2025
 
 
 Docker book by [Bernd Öggl](https://webman.at) and [Michael Kofler](https://kofler.info), available in German and English
 
-This repository contains the sample files for the 4th German edition, published in autumn 2023.
+This repository contains the sample files for the 5th German edition, published in autumn 2025.
 
 ## Das Praxisbuch für Entwickler und DevOps-Teams
 
-510 Seiten, 4. Auflage 2023, gebunden
+XXX Seiten, 5. Auflage 2025, gebunden
+<!-- FIXME -->
 Rheinwerk Computing, ISBN 78-3-8362-9646-5
 
 <https://www.rheinwerk-verlag.de/5742>
@@ -19,8 +20,8 @@ Verwenden Sie bitte die folgenden Kommandos, um alle Beispiele
 zur deutschen Ausgabe des Docker-Buchs herunterzuladen:
 
 ```bash
-git clone https://github.com/docker-compendium/docker4-samples.git
-cd docker4-samples
+git clone https://github.com/docker-compendium/docker5-samples.git
+cd docker5-samples
 ```
 
 ## Kapitel
