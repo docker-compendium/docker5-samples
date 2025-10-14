@@ -11,8 +11,8 @@ $ open http://0.0.0.0:8080/
 ## Dynamic port mapping
 
 ```bash
-$ docker build -t docbuc/hello-world-python .
-$ docker run -d -P --name hello-world docbuc/hello-world-python
+$ docker build -t hello-world-python .
+$ docker run -d -P --name hello-world hello-world-python
 $ docker port hello-world
 
   8080/tcp -> 0.0.0.0:32772
