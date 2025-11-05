@@ -11,7 +11,8 @@ services:
     environment:
       DEBUG: "src"
         # command: [ "nodemon", "-e", "js,hbs", "bin/www" ]
-    command: [ "node", "bin/www" ]
+    # command: [ "npm", "i", "&&", node", "bin/www" ]
+    command: sh -c "npm i && nodemon -e "js,hbs" bin/www"
   # prod:
   #   build:
   #     context: .

@@ -1,7 +1,7 @@
 services:
   traefik:
     restart: unless-stopped
-    image: traefik:v2.10
+    image: traefik:v3.5
     networks:
       - web
     ports:

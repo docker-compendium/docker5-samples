@@ -1,5 +1,6 @@
-FROM node:20
+FROM node:24
 WORKDIR /src
 RUN npm i -g express-generator nodemon
+RUN mkdir -p /src/node_modules && chown -R node:node /src/node_modules
 USER node
 
