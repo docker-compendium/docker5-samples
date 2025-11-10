@@ -1,8 +1,8 @@
 # Dockerfile
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
-LABEL maintainer "name@somehost.com"
-LABEL description "Test"
+LABEL maintainer="name@example.com"
+LABEL description="Test"
 
 # setup environment variables and time zone
 # (avoids interactive setting)
