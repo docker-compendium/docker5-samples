@@ -1,13 +1,13 @@
 # Datei: db/postgres/compose.yaml
 services:
   db:
-    image: postgres:15
+    image: postgres:18
     environment:
       POSTGRES_PASSWORD: geheim
       POSTGRES_DB: geonames
     volumes:
       - ./init:/docker-entrypoint-initdb.d
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
   pgadmin:
     image: dpage/pgadmin4
     ports:
