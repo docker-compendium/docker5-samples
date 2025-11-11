@@ -1,11 +1,11 @@
-let dom = db.geoname.findOne({
+let cathedral = db.geoname.findOne({
   name: /Köln.*Dom/
 });
 
 const query = [
   {
     $geoNear: {
-      near: dom.location,
+      near: cathedral.location,
       spherical: true,
       distanceField: 'dis',
       query: { feature_code: 'HTL' }

@@ -72,7 +72,7 @@ The table 'alternate names' :
 -----------------------------
 alternateNameId   : the id of this alternate name, int
 geonameid         : geonameId referring to id in table 'geoname', int
-isolanguage       : iso 639 language code 2- or 3-characters; 4-characters 'post' for postal codes and 'iata','icao' and faac for airport codes, fr_1793 for French Revolution names,  abbr for abbreviation, link to a website (mostly to wikipedia), wkdt for the wikidataid, varchar(7)
+isolanguage       : iso 639 language code 2- or 3-characters, optionally followed by a hyphen and a countrycode for country specific variants (ex:zh-CN) or by a variant name (ex: zh-Hant); 4-characters 'post' for postal codes and 'iata','icao' and faac for airport codes, fr_1793 for French Revolution names,  abbr for abbreviation, link to a website (mostly to wikipedia), wkdt for the wikidataid, varchar(7)
 alternate name    : alternate name or name variant, varchar(400)
 isPreferredName   : '1', if this alternate name is an official/preferred name
 isShortName       : '1', if this is a short name like 'California' for 'State of California'
@@ -128,7 +128,7 @@ https://www.geonames.org to correct inaccuracies and to add new records.
 Thanks in the name of the geonames community for your valuable contribution.
 
 Data Sources:
-https://www.geonames.org/data-sources.html
+https://www.geonames.org/datasources/
 
 
 More Information is also available in the geonames faq :
