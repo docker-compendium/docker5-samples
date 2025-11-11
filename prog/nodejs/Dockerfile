@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:24
 WORKDIR /src
 RUN chown node:node /src
 USER node
