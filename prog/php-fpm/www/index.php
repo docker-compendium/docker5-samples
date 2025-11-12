@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 $Parsedown = new Parsedown();
-$img = 'ravenna.jpg';
+$img = 'wing.jpg';
 $exif = exif_read_data($img);
 $md =  <<<EOD
 ![pic]($img)
