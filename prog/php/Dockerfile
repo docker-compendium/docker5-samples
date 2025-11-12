@@ -1,9 +1,9 @@
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 RUN apt-get update && apt-get install -y --no-install-recommends\
   composer \
-  php8.2 \
-  php8.2-dom \
-  php8.2-zip \
+  php8.4 \
+  php8.4-dom \
+  php8.4-zip \
   unzip \
   && rm -rf /var/lib/apt/lists/*
 RUN useradd -ms /bin/bash php8
