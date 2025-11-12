@@ -1,8 +1,8 @@
-FROM golang:1.20-alpine AS dev
+FROM golang:1.25-alpine AS dev
 RUN apk add --no-cache tzdata
 ENV TZ=Europe/Vienna
 WORKDIR /app
-RUN go install github.com/cosmtrek/air@latest
+RUN go install github.com/air-verse/air@latest
 RUN go install github.com/go-delve/delve/cmd/dlv@latest
 # cache modules
 COPY go.mod go.sum ./

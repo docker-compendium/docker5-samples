@@ -27,7 +27,7 @@ func main() {
 		log.Fatal("error: set GO_SESSION_KEY to a secret string and try again")
 	}
 	gob.Register(User{})
-	store, err := redis.NewStore(10, "tcp", "redis:6379", "", []byte(sessionKey))
+	store, err := redis.NewStore(10, "tcp", "redis:6379", "", sessionKey)
 	if err != nil {
 		panic(err)
 	}
