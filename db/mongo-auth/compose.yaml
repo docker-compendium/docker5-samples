@@ -1,7 +1,7 @@
 # Datei: db/mongo-auth/compose.yaml
 services:
   db:
-    image: mongo:5
+    image: mongo:8
     volumes:
       - mongo:/data/db
       - ./init:/docker-entrypoint-initdb.d

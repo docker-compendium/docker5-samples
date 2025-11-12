@@ -1,7 +1,7 @@
 # Datei: db/redis/compose.yaml
 services:
   rd-master:
-    image: redis:7
+    image: redis:8
   rd-slave:
-    image: redis:7
+    image: redis:8
     command: redis-server --slaveof rd-master 6379
