@@ -9,7 +9,7 @@ import java.io.IOException;
 public class printheadlines {
 
   private static String url = "https://heise.de/newsticker/";
-  void main(String[] args) throws IOException {
+  void main() throws IOException {
     IO.println("Fetching "+ url);
 
     Document doc = Jsoup.connect(url).get();
