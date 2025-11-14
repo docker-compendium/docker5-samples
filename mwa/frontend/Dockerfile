@@ -1,5 +1,5 @@
 # Datei: mwa/frontend/Dockerfile (docbuc/mwa-fe)
-FROM node:20 as builder
+FROM node:24 AS builder
 WORKDIR /src/vue
 COPY vue-project/package* /src/vue/
 RUN chown -R node:node /src
