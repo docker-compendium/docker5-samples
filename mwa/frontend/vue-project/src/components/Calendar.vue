@@ -63,7 +63,7 @@ export default {
           '/entries/' +
             d.getFullYear() +
             '-' +
-            (d.getMonth() + 1).toLocaleString('de', { minimumIntegerDigits: 2 })
+            (d.getMonth() + 1).toLocaleString('de', { minimumIntegerDigits: 2 }),
         )
         .then((json) => {
           if (json.length) {
