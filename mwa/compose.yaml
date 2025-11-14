@@ -1,16 +1,16 @@
 services:
   mongo1:
-    image: mongo:5
+    image: mongo:8
     command: --replSet "rs0"
     volumes:
       - mongovol1:/data/db
   mongo2:
-    image: mongo:5
+    image: mongo:8
     command: --replSet "rs0"
     volumes:
       - mongovol2:/data/db
   mongo3:
-    image: mongo:5
+    image: mongo:8
     command: --replSet "rs0"
     volumes:
       - mongovol3:/data/db
@@ -26,7 +26,7 @@ services:
     ports:
       - 3000:3000
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
   frontend:
     restart: always
     build: frontend

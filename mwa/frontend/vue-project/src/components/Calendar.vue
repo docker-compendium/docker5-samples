@@ -19,9 +19,9 @@
 import { CalendarView, CalendarViewHeader } from 'vue-simple-calendar'
 
 import request from '../util/request'
-import '../../node_modules/vue-simple-calendar/dist/style.css'
-import 'vue-simple-calendar/dist/css/default.css'
-import 'vue-simple-calendar/dist/css/holidays-us.css'
+import 'vue-simple-calendar/dist/vue-simple-calendar.css'
+// import 'vue-simple-calendar/dist/css/default.css'
+// import 'vue-simple-calendar/dist/css/holidays-us.css'
 export default {
   name: 'calendar',
   props: ['entries'],
