@@ -8,10 +8,10 @@ datasources:
     isDefault: true
     jsonData:
       dbName: dockerbuch
-      httpMode: GET
       httpHeaderName1: 'Authorization'
-      timeInterval: '>10s'
+      pdcInjected: false
+      version: InfluxQL
     secureJsonData:
       httpHeaderValue1: 'Token gahPae6deivo0aenooy7thoheewaex9eeNgaePah8dee5io6neewooSe3bemu9gi'
-    editable: true
+    readOnly: true
 

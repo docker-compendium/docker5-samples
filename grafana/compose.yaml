@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: docbuc/grafana
+    image: docbuc/grafana:5
     build: .
     restart: unless-stopped
     ports:
@@ -8,7 +8,8 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=geheim
   telegraf:
-    image: docbuc/telegraf
+    image: docbuc/telegraf:5
+    hostname: telegraf
     build: telegraf/
     restart: unless-stopped
     volumes:
@@ -18,7 +19,7 @@ services:
       - INFLUXDB_ORG=dockerbuch
       - INFLUXDB_BUCKET=dockerbuch
   influx:
-    image: influxdb:2.7
+    image: influxdb:2
     restart: unless-stopped
     # ports:
     #   - 8086:8086
