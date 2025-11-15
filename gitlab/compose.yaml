@@ -32,6 +32,15 @@ services:
         registry_external_url 'https://registry.dockerbuch.info'
         registry['registry_http_addr'] = "0.0.0.0:5000"
         registry_nginx['enable'] = false
+        mattermost_external_url 'https://mattermost.dockerbuch.info'
+        mattermost_nginx['enable'] = false
+        mattermost['service_address'] = "0.0.0.0"
+        mattermost['service_port'] = "8065"
+        mattermost['gitlab_auth_endpoint'] = "http://gitlab.dockerbuch.info/oauth/authorize"
+        mattermost['gitlab_token_endpoint'] = "http://gitlab.dockerbuch.info/oauth/token"
+        mattermost['gitlab_user_api_endpoint'] = "http://gitlab.dockerbuch.info/api/v4/user"
+        mattermost['sql_driver_name'] = 'postgres'
+        mattermost['sql_data_source'] = "user=gitlab_mattermost host=postgresql port=5432 sslmode=disable dbname=mattermost password=geheim"
     ports:
       - "2222:22"
     restart: always
@@ -54,10 +63,15 @@ services:
       - traefik.http.routers.reg.tls.certresolver=lets-encrypt
       - traefik.http.routers.reg.service=gl-rg
       - traefik.http.services.gl-rg.loadbalancer.server.port=5000
+      - traefik.http.routers.mm.rule=Host(`mattermost.dockerbuch.info`)
+      - traefik.http.routers.mm.tls=true
+      - traefik.http.routers.mm.tls.certresolver=lets-encrypt
+      - traefik.http.routers.mm.service=mm
+      - traefik.http.services.mm.loadbalancer.server.port=8065
   redis:
-    image: redis:7
+    image: redis:8
   postgresql:
-    image: postgres:13
+    image: postgres:16
     environment:
       - POSTGRES_USER=gitlab
       - POSTGRES_PASSWORD=ief6baehohQu

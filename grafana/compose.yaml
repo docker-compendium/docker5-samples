@@ -7,6 +7,15 @@ services:
       - 3000:3000
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=geheim
+      - GF_USERS_DEFAULT_THEME=light
+    labels:
+      - traefik.http.routers.buch.rule=Host(`grafana.dockerbuch.info`)
+      - traefik.http.routers.buch.tls=true
+      - traefik.http.routers.buch.tls.certresolver=lets-encrypt
+      - traefik.http.services.buch.loadbalancer.server.port=3000
+    networks:
+      - default
+      - web
   telegraf:
     image: docbuc/telegraf:5
     hostname: telegraf
@@ -21,8 +30,13 @@ services:
   influx:
     image: influxdb:2
     restart: unless-stopped
-    # ports:
-    #   - 8086:8086
+    ports:
+      - 8086:8086
+    labels:
+      - traefik.http.routers.buchx.rule=Host(`influxdb.dockerbuch.info`)
+      - traefik.http.routers.buchx.tls=true
+      - traefik.http.routers.buchx.tls.certresolver=lets-encrypt
+      - traefik.http.services.buchx.loadbalancer.server.port=8086
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=dockerbuch
@@ -30,3 +44,7 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=dockerbuch
       - DOCKER_INFLUXDB_INIT_BUCKET=dockerbuch
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=gahPae6deivo0aenooy7thoheewaex9eeNgaePah8dee5io6neewooSe3bemu9gi
+
+networks:
+  web:
+    external: true
