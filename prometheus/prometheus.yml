@@ -1,0 +1,53 @@
+global:
+  # scrape monitoring every 15 seconds
+  scrape_interval: 15s
+
+# connection to alert maanger
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+# read alert rules
+rule_files:
+  - "alert_rules.yml"
+
+# scraping (monitoring)
+scrape_configs:
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets:
+        - myserver.com:9100
+        - otherserver.com:9100
+
+  - job_name: 'node_exporter_iprot'
+    # hidden node exporter
+    metrics_path: '/sdfasdfsokrc'
+    static_configs:
+      - targets: 
+        - 'yetanotherserver:9123'
+
+  # black box exporter (web monitoring)
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - https://myserver.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackboxexporter:9115
+
+  # MySQL/MariaDB monitoring
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['myserver.com:9104']
+      - targets: ['otherserver.com:9104']
+
+  

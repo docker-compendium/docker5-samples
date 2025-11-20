@@ -1,0 +1,26 @@
+global:
+  smtp_smarthost:     '???'
+  smtp_from:          'sender@example.com'
+  smtp_auth_username: 'sender'
+  smtp_auth_password: 'xxxx'
+  smtp_require_tls:   true
+
+route:
+  group_by: ['alertname']
+  group_wait: 1m
+  group_interval: 5m
+  repeat_interval: 1d
+  receiver: 'email-notifications'
+
+receivers:
+  - name: 'email-notifications'
+    email_configs:
+    - to: 'recp@somehost.com'
+      send_resolved: true
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']

@@ -1,0 +1,69 @@
+groups:
+  - name: example
+    rules:
+      - alert: HighCPUUsage
+        expr: > 
+          100 - (avg by(instance) (
+            rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 10
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: High CPU usage on {{ $labels.instance }}
+          description: CPU usage is above 10% on {{ $labels.instance }}
+
+  - name: basic
+    rules:
+      - alert: TargetDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Prometheus target missing (instance {{ $labels.instance }})
+          description: >
+            {{ $labels.instance }} has disappeared.
+            Perhaps the node exporter has crashed.
+
+      - alert: DiskAlmostFull
+        expr: >
+          ((node_filesystem_avail_bytes * 100) / 
+           node_filesystem_size_bytes < 15 and 
+           ON (instance, device, mountpoint) 
+           node_filesystem_readonly == 0) 
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Disk almost full (instance {{ $labels.instance }})
+          description: >
+            Disk is almost full (< 15% left)
+            VALUE = {{ $value }}
+            LABELS = {{ $labels }}
+            
+      - alert: RaidDegraded
+        expr: node_md_disks_required - node_md_disks{state="active"} > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RAID array degraded on {{ $labels.instance }}"
+          description: >
+            RAID array {{ $labels.device }} on {{ $labels.instance }} is in
+            a degraded state. It has {{ $value }} disk(s) less than required.
+            VALUE = {{ $value }}
+            LABELS: {{ $labels }}
+      
+      - alert: RaidFailed
+        expr: node_md_disks{state="failed"} > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "RAID array has failed disks on {{ $labels.instance }}"
+          description: >
+            RAID array {{ $labels.device }} on {{ $labels.instance }}
+            has {{ $value }} failed disk(s).
+            VALUE = {{ $value }}
+            LABELS: {{ $labels }}
+
