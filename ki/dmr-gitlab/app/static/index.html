@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitLab Chatbot</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 GitLab Chatbot</h1>
+            <p class="subtitle">Ask questions about the Dockerbuch GitLab project in plain English</p>
+        </header>
+
+        <main>
+            <section class="chat-section">
+                <form id="gitlabChatForm" class="chat-form">
+                    <div class="input-group">
+                        <label for="gitlabQuestion">Ask a question about the GitLab project:</label>
+                        <textarea
+                            id="gitlabQuestion"
+                            name="question"
+                            rows="4"
+                            placeholder="e.g., What open issues need attention today? Summarize the latest pipeline for feature/lighthouse-gate. List all branches involved in CI hardening."
+                            required
+                        ></textarea>
+                    </div>
+                    <button type="submit" id="chatSubmitBtn">Ask GitLab</button>
+                </form>
+
+                <div id="chatLoading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Thinking...</p>
+                </div>
+
+                <div id="chatError" class="error hidden"></div>
+
+                <div id="chatAnswer" class="chat-response hidden">
+                    <div class="result-header">
+                        <h3>Answer</h3>
+                        <div class="query-item">
+                            <strong>Action:</strong>
+                            <span id="chatAction"></span>
+                        </div>
+                    </div>
+                    <p id="chatAnswerText" class="chat-answer-text"></p>
+                    <details>
+                        <summary>Answer Context</summary>
+                        <pre id="chatContext"></pre>
+                    </details>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by the GitLab proxy</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+    <script>
+        const chatForm = document.getElementById('gitlabChatForm');
+        const chatLoading = document.getElementById('chatLoading');
+        const chatError = document.getElementById('chatError');
+        const chatAnswer = document.getElementById('chatAnswer');
+        const chatSubmitBtn = document.getElementById('chatSubmitBtn');
+
+        chatForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const questionInput = document.getElementById('gitlabQuestion');
+            const question = questionInput.value.trim();
+            if (!question) {
+                showChatError('Please enter a question for GitLab.');
+                return;
+            }
+            resetChat();
+            showChatLoading();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question })
+                });
+                const data = await response.json();
+                hideChatLoading();
+
+                if (data.error) {
+                    showChatError(data.error);
+                } else {
+                    showChatAnswer(data);
+                }
+            } catch (err) {
+                hideChatLoading();
+                showChatError('Network error: ' + err.message);
+            }
+        });
+
+        function showChatLoading() {
+            chatLoading.classList.remove('hidden');
+            chatSubmitBtn.disabled = true;
+            chatSubmitBtn.textContent = 'Thinking...';
+        }
+
+        function hideChatLoading() {
+            chatLoading.classList.add('hidden');
+            chatSubmitBtn.disabled = false;
+            chatSubmitBtn.textContent = 'Ask GitLab';
+        }
+
+        function resetChat() {
+            chatError.classList.add('hidden');
+            chatAnswer.classList.add('hidden');
+        }
+
+        function showChatError(message) {
+            chatError.textContent = 'Error: ' + message;
+            chatError.classList.remove('hidden');
+        }
+
+        function showChatAnswer(data) {
+            document.getElementById('chatAction').textContent = data.action;
+            const answerBlock = document.getElementById('chatAnswerText');
+            if (window.marked && data.answer) {
+                answerBlock.innerHTML = marked.parse(data.answer);
+            } else {
+                answerBlock.textContent = data.answer || 'No answer generated.';
+            }
+            document.getElementById('chatContext').textContent = JSON.stringify(data.context || {}, null, 2);
+            chatAnswer.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+services:
+  gitlab-proxy:
+    build:
+      context: ./gitlab-proxy
+      dockerfile: Dockerfile
+    command: ["python", "-m", "gitlab_proxy"]
+    environment:
+      GITLAB_PROXY_HOST: 0.0.0.0
+      GITLAB_PROXY_PORT: 8002
+      GITLAB_API_URL: ${GITLAB_API_URL:-https://gitlab.dockerbuch.info/api/v4}
+      GITLAB_PROJECT_ID: ${GITLAB_PROJECT_ID:-dockerbuch/webpage}
+      GITLAB_TOKEN: ${GITLAB_PAT:?Set GITLAB_PAT in your .env file}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  webapp:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    models:
+      - llm
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_TIMEOUT=120
+      - GITLAB_PROXY_URL=http://gitlab-proxy:8002
+    depends_on:
+      gitlab-proxy:
+        condition: service_healthy
+    volumes:
+      - ./app:/app
+
+models:
+  llm:
+    model: ai/gpt-oss
+    context_size: 4096
+
