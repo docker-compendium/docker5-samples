@@ -1,0 +1,63 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: movies_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  webapp:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: webapp
+    models:
+      - gptoss
+      - qwen3
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_HOST=mariadb
+      - DATABASE_PORT=3306
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=movies_db
+      - LLM_TIMEOUT=120
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - app-network
+    volumes:
+      - ./app:/app
+
+volumes:
+  mariadb_data:
+
+models:
+  gptoss:
+    model: ai/gpt-oss
+    context_size: 4096
+  qwen3:
+    model: ai/qwen3
+    context_size: 4096
+
+networks:
+  app-network:
+    driver: bridge
