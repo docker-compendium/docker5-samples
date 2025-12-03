@@ -37,7 +37,6 @@ TOOLS_CACHE: Dict[str, Any] = {
 }
 
 
-
 class ChatRequest(BaseModel):
     question: str
 
@@ -178,7 +177,9 @@ def get_tool_metadata(tool_name: str) -> Dict[str, Any]:
     return TOOLS_CACHE["by_name"].get(tool_name) or {}
 
 
-def normalize_tool_arguments(tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
+def normalize_tool_arguments(
+    tool_name: str, arguments: Dict[str, Any]
+) -> Dict[str, Any]:
     """Ensure arguments align with the tool schema."""
     if not isinstance(arguments, dict):
         arguments = {}
@@ -448,7 +449,7 @@ async def health_check():
         async with httpx.AsyncClient(timeout=GITLAB_PROXY_TIMEOUT) as client:
             response = await client.get(f"{GITLAB_PROXY_URL}/health")
             if response.status_code == 200:
-            health_status["gitlab_proxy"] = "connected"
+                health_status["gitlab_proxy"] = "connected"
             else:
                 health_status["status"] = "unhealthy"
             health_status["gitlab_proxy"] = f"error: HTTP {response.status_code}"
