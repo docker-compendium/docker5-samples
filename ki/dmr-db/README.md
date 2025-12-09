@@ -27,15 +27,20 @@ A cutting-edge web application that enables users to query a MariaDB movie datab
 3. Enable **Docker Model Runner**
 4. (Optional) Enable **GPU-backed inference** for better performance
 
-### 2. Pull a Language Model
+### 2. Pull Language Models
 
-Before starting the application, pull a model using Docker Model Runner:
+Before starting the application, pull the models used by this application using Docker Model Runner:
 
 ```bash
-docker model pull ai/smollm2:360M-Q4_K_M
+docker model pull ai/gpt-oss
+docker model pull ai/qwen3
 ```
 
-This will download a lightweight model suitable for local inference. You can also use other models from the Docker Model registry.
+These models are configured in `compose.yaml`:
+- **gptoss**: Uses `ai/gpt-oss` model (default)
+- **qwen3**: Uses `ai/qwen3` model
+
+Both models are configured with a context size of 4096 tokens. You can modify the models in `compose.yaml` if you prefer different models from the Docker Model registry.
 
 ### 3. Start the Application
 
@@ -73,9 +78,11 @@ Try asking questions in natural language:
 
 ### Choosing an LLM Model
 
-The UI now exposes a dropdown that lists every model Docker Model Runner injects
-into the container (via the `models` section of `compose.yaml`). Pick the model
-you want per request—great for quickly comparing output quality or latency.
+The UI exposes a dropdown that lists all available models configured in `compose.yaml`:
+- **gptoss** (default): Uses `ai/gpt-oss` model
+- **qwen3**: Uses `ai/qwen3` model
+
+Pick the model you want per request—great for quickly comparing output quality or latency between different models.
 
 ### API Endpoints
 
@@ -209,16 +216,21 @@ The application uses the following environment variables (set in `compose.yaml`)
 
 ### Model Runner Configuration
 
-The Model Runner configuration is handled automatically by Docker Compose through the `models` section in `compose.yaml`. The model and API endpoints (`LLM_URL` and `LLM_MODEL`) are automatically injected as environment variables into the webapp container. The default model is `ai/gpt-oss` as specified in `compose.yaml`, but you can modify this in the compose file.
+The Model Runner configuration is handled automatically by Docker Compose through the `models` section in `compose.yaml`. Two models are configured:
+
+- **gptoss**: Uses `ai/gpt-oss` model with 4096 token context size (default)
+- **qwen3**: Uses `ai/qwen3` model with 4096 token context size
+
+The model identifiers and API endpoints (`LLM_URL` and `LLM_MODEL`) are automatically injected as environment variables into the webapp container. The default model is `gptoss` (which uses `ai/gpt-oss`), but you can select a different model at runtime via the UI dropdown or API request. You can modify the models in `compose.yaml` to use different models from the Docker Model registry.
 
 ## Troubleshooting
 
 ### Model Runner Not Responding
 
 1. Ensure Docker Model Runner is enabled in Docker Desktop settings
-2. Verify the model is pulled: `docker model ls`
+2. Verify the models are pulled: `docker model ls` (should show `ai/gpt-oss` and `ai/qwen3`)
 3. Check if Model Runner is running: The API should be accessible at `http://localhost:12434`
-4. Verify the `LLM_URL` and `LLM_MODEL` environment variables are set correctly (they should be set automatically by Docker Compose)
+4. Verify the `LLM_URL` and `LLM_MODEL` environment variables are set correctly (they should be set automatically by Docker Compose for both `GPTOSS_*` and `QWEN3_*` prefixes)
 
 ### Database Connection Issues
 
