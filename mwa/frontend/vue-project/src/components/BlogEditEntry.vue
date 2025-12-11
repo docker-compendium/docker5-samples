@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { VueDatePicker } from '@vuepic/vue-datepicker'
+import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import request from '../util/request'
 import { marked } from 'marked'

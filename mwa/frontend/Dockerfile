@@ -5,9 +5,9 @@ COPY vue-project/package* /src/vue/
 RUN chown -R node:node /src
 USER node
 RUN npm install
-COPY vue-project/ /src/vue/
+COPY --chown=node:node vue-project/ /src/vue/
 RUN npm run-script build
-COPY dev-entrypoint.sh /src/
+COPY --chown=node:node dev-entrypoint.sh /src/
 ENTRYPOINT [ "/src/dev-entrypoint.sh" ]
 CMD [ "npm", "run", "dev", "--", "--host"]
 
