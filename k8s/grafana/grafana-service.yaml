@@ -3,12 +3,10 @@ kind: Service
 metadata:
   annotations:
     kompose.cmd: kompose convert
-    kompose.version: 1.30.0 (9d8dcb518)
-  creationTimestamp: null
+    kompose.version: 1.37.0 (fb0539e64)
   labels:
     io.kompose.service: grafana
   name: grafana
-  namespace: default
 spec:
   ports:
     - name: "3000"
@@ -16,5 +14,3 @@ spec:
       targetPort: 3000
   selector:
     io.kompose.service: grafana
-status:
-  loadBalancer: {}

@@ -3,26 +3,21 @@ kind: Deployment
 metadata:
   annotations:
     kompose.cmd: kompose convert
-    kompose.version: 1.30.0 (9d8dcb518)
-  creationTimestamp: null
+    kompose.version: 1.37.0 (fb0539e64)
   labels:
     io.kompose.service: influx
   name: influx
-  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
       io.kompose.service: influx
-  strategy: {}
   template:
     metadata:
       annotations:
         kompose.cmd: kompose convert
-        kompose.version: 1.30.0 (9d8dcb518)
-      creationTimestamp: null
+        kompose.version: 1.37.0 (fb0539e64)
       labels:
-        io.kompose.network/grafana-default: "true"
         io.kompose.service: influx
     spec:
       containers:
@@ -43,8 +38,5 @@ spec:
           name: influx
           ports:
             - containerPort: 8086
-              hostPort: 8086
               protocol: TCP
-          resources: {}
       restartPolicy: Always
-status: {}
