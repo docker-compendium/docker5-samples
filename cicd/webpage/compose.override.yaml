@@ -4,7 +4,8 @@ services:
     build:
       context: .
       target: build
-    user: "1000"
+    user: "${UID}:${GID}"
+
     command: ["hugo", "server", "--bind", "0.0.0.0"]
     ports:
       - 1313:1313

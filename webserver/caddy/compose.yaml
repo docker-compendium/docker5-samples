@@ -8,6 +8,8 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-config:/config
       - caddy-data:/data
+  nginx:
+    image: nginx
 
 volumes:
   caddy-config:

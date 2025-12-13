@@ -32,18 +32,24 @@ services:
         registry_external_url 'https://registry.dockerbuch.info'
         registry['registry_http_addr'] = "0.0.0.0:5000"
         registry_nginx['enable'] = false
+        # registry['max_upload_size'] >= 10737418240
         mattermost_external_url 'https://mattermost.dockerbuch.info'
         mattermost_nginx['enable'] = false
+        mattermost['gitlab_enable'] = true
         mattermost['service_address'] = "0.0.0.0"
         mattermost['service_port'] = "8065"
+        mattermost['gitlab_id'] = "b21953057d316aa0eb7bd1d36d647554b8463c20f8dd11d86804f42813b2093d"
+        mattermost['gitlab_secret'] = "gloas-d140425cb3c522c6b39fe76df21fc95c5c28257086bf5996f0ca90ec81cb3041"
+        mattermost['gitlab_scope'] = "read_user"
         mattermost['gitlab_auth_endpoint'] = "http://gitlab.dockerbuch.info/oauth/authorize"
         mattermost['gitlab_token_endpoint'] = "http://gitlab.dockerbuch.info/oauth/token"
         mattermost['gitlab_user_api_endpoint'] = "http://gitlab.dockerbuch.info/api/v4/user"
+        gitlab_rails['mattermost_host'] = "https://mattermost.dockerbuch.info"
         mattermost['sql_driver_name'] = 'postgres'
         mattermost['sql_data_source'] = "user=gitlab_mattermost host=postgresql port=5432 sslmode=disable dbname=mattermost password=geheim"
     ports:
       - "2222:22"
-    restart: always
+    restart: unless-stopped
     volumes:
       - config:/etc/gitlab
       - logs:/var/log/gitlab
@@ -62,7 +68,24 @@ services:
       - traefik.http.routers.reg.tls=true
       - traefik.http.routers.reg.tls.certresolver=lets-encrypt
       - traefik.http.routers.reg.service=gl-rg
+      - traefik.http.middlewares.registry-body.buffering.maxRequestBodyBytes=2147483648
       - traefik.http.services.gl-rg.loadbalancer.server.port=5000
+
+      - "traefik.http.middlewares.registry-body.buffering.maxRequestBodyBytes=2147483648"  # 2GB
+      - "traefik.http.middlewares.registry-body.buffering.maxResponseBodyBytes=2147483648"  # 2GB
+      - "traefik.http.middlewares.registry-body.buffering.memRequestBodyBytes=10485760"  # 10MB
+      - "traefik.http.middlewares.registry-body.buffering.retryExpression=IsNetworkError() && Attempts() < 3"
+      # Apply middleware
+      # - "traefik.http.routers.registry.middlewares=registry-body"
+      - traefik.http.routers.reg.middlewares=registry-body
+
+      # Service configuration with increased timeouts
+      # - "traefik.http.services.registry.loadbalancer.server.port=5000"
+      # - "traefik.http.services.gl-rg.loadbalancer.healthCheck.interval=30s"
+      # - "traefik.http.services.gl-rg.loadbalancer.healthCheck.timeout=10s"
+
+
+
       - traefik.http.routers.mm.rule=Host(`mattermost.dockerbuch.info`)
       - traefik.http.routers.mm.tls=true
       - traefik.http.routers.mm.tls.certresolver=lets-encrypt
@@ -70,16 +93,19 @@ services:
       - traefik.http.services.mm.loadbalancer.server.port=8065
   redis:
     image: redis:8
+    restart: unless-stopped
   postgresql:
     image: postgres:16
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=gitlab
       - POSTGRES_PASSWORD=ief6baehohQu
       - POSTGRES_DB=gitlab_prod
     volumes:
-      - pgdata:/var/lib/postgresql
+      - pgdata:/var/lib/postgresql/data
   exim:
     build: exim/
+    restart: unless-stopped
     environment:
       - RELAY_FROM=gitlab-gitlab-1.gitlab_default
 volumes:

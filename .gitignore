@@ -1,3 +1,4 @@
 *~
 dockerfile/pandoc-sample/myfonts.tgz
 webserver/traefik/acme
+.env

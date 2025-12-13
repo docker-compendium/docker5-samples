@@ -1,6 +1,6 @@
-FROM debian:bookworm AS build
+FROM debian:trixie AS build
 
-ENV HUGO_VERSION=0.115.4
+ENV HUGO_VERSION=0.152.2
 
 WORKDIR /tmp
 ADD https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz /tmp/hugo.tar.gz

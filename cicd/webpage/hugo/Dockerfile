@@ -1,6 +1,6 @@
-FROM alpine:3.18
+FROM alpine:3
 
-ENV HUGO_VERSION=0.115.4
+ENV HUGO_VERSION=0.152.2
 
 WORKDIR /tmp
 RUN wget https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz \

@@ -1,2 +1,8 @@
 caddy.dockerbuch.info
+root * /usr/share/caddy
+handle_path /nginx/* {
+  reverse_proxy nginx:80
+}
+file_server
+
 

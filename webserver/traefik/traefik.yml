@@ -8,6 +8,11 @@ entryPoints:
           scheme: https
   websecure:
     address: ':443'
+    transport:
+      respondingTimeouts:
+        readTimeout: '30m'
+        writeTimeout: '30m'
+        idleTimeout: '5m'
 api:
   dashboard: true
 certificatesResolvers:

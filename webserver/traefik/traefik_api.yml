@@ -6,7 +6,7 @@ http:
           - 'admin:$apr1$bHPGpQgP$mnsRIxlw0F3sKSgFF.rWp/'
   routers:
     api:
-      rule: Host(`demo.dockerbuch.info`)
+      rule: Host(`traefik.dockerbuch.info`)
       entrypoints:
         - websecure
       middlewares:

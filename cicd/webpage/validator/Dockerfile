@@ -1,6 +1,6 @@
-FROM eclipse-temurin:20
+FROM eclipse-temurin:25
 
-ENV VALIDATOR_VERSION=20.6.30
+ENV VALIDATOR_VERSION=latest
 
 WORKDIR /src
 
