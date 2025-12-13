@@ -1,0 +1,2 @@
+# GitLab proxy component
+

@@ -3,12 +3,10 @@ kind: Service
 metadata:
   annotations:
     kompose.cmd: kompose convert
-    kompose.version: 1.30.0 (9d8dcb518)
-  creationTimestamp: null
+    kompose.version: 1.37.0 (fb0539e64)
   labels:
     io.kompose.service: influx
   name: influx
-  namespace: default
 spec:
   ports:
     - name: "8086"
@@ -16,5 +14,3 @@ spec:
       targetPort: 8086
   selector:
     io.kompose.service: influx
-status:
-  loadBalancer: {}

@@ -1,20 +1,20 @@
 services:
   mongo1:
-    image: mongo:5
+    image: mongo:8
     command: --replSet "rs0"
     volumes:
       - mongovol1:/data/db
     ports:
       - 27017
   mongo2:
-    image: mongo:5
+    image: mongo:8
     command: --replSet "rs0"
     volumes:
       - mongovol2:/data/db
     ports:
       - 27017
   mongo3:
-    image: mongo:5
+    image: mongo:8
     command: --replSet "rs0"
     volumes:
       - mongovol3:/data/db
@@ -23,7 +23,7 @@ services:
   api:
     restart: always
     build: api
-    image: docbuc/mwa-api@sha256:0a98d1dd2f44885c49883d87421e7c1e3a8cc4c6a8b57561fb41f3153062bcf0
+    image: docbuc/mwa-api
     environment:
       - MONGO_URL=mongodb://mongo1:27017,mongo2:27017,mongo3:27017/?replicaSet=rs0
       - HEALTH_URL=http://localhost:3000/health
@@ -33,7 +33,7 @@ services:
     ports:
       - 3000:3000
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     ports:
       - 6379
   frontend:

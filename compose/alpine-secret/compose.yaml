@@ -1,5 +1,4 @@
-# note: does not work with podman-compose (tested with Podman 4.5, podman-compose 1.0.6)
-
+# note: does not work with podman compose (tested with Podman 5.6, Podman Desktop and docker compose v2.39.3
 services:
   secrettest:
     image: alpine

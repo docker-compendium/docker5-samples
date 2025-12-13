@@ -1,4 +1,4 @@
-docker compose exec mongo1 mongo --eval '
+docker compose exec mongo1 mongosh --eval '
 rs.initiate( {
    _id : "rs0",
    members: [

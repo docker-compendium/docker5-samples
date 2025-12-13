@@ -15,7 +15,7 @@ services:
      volumes:
        - vol-www:/var/www/html/wp-content
      ports:
-       - "8082:80"
+       - "127.0.0.1:8082:80"
      environment:
        WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: wpuser

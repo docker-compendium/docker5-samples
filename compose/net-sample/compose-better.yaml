@@ -1,0 +1,14 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "8088:8088"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    # optional for documentation; port 5000
+    # is only accessible inside, NOT outside
+    # expose:
+    #   - "5000"

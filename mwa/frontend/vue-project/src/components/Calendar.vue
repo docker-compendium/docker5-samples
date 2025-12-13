@@ -19,7 +19,7 @@
 import { CalendarView, CalendarViewHeader } from 'vue-simple-calendar'
 
 import request from '../util/request'
-import 'vue-simple-calendar/dist/vue-simple-calendar.css'
+// import 'vue-simple-calendar/dist/vue-simple-calendar.css'
 // import 'vue-simple-calendar/dist/css/default.css'
 // import 'vue-simple-calendar/dist/css/holidays-us.css'
 export default {

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Language Movie Database Query</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Natural Language Movie Database Query</h1>
+            <p class="subtitle">Ask questions about movies in plain English</p>
+        </header>
+
+        <main>
+            <div class="query-section">
+                <form id="queryForm">
+                    <div class="input-group">
+                        <label for="queryInput">Enter your question:</label>
+                        <textarea 
+                            id="queryInput" 
+                            name="query" 
+                            placeholder="e.g., What movies did Tom Hanks star in? Show me all action movies from 2000. Which movies have a rating above 8.5?"
+                            rows="3"
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="modelSelect">Choose a model:</label>
+                        <select id="modelSelect" name="model" required>
+                            <option value="" disabled selected>Loading models...</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submitBtn">Query Database</button>
+                </form>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Processing your query...</p>
+            </div>
+
+            <div id="error" class="error hidden"></div>
+
+            <div id="results" class="results hidden">
+                <div class="result-header">
+                    <h2>Results</h2>
+                    <div class="query-info">
+                        <div class="query-item">
+                            <strong>Your Question:</strong>
+                            <span id="naturalQuery"></span>
+                        </div>
+                        <div class="query-item">
+                            <strong>Generated SQL:</strong>
+                            <code id="sqlQuery"></code>
+                        </div>
+                        <div class="query-item">
+                            <strong>Model Used:</strong>
+                            <span id="modelUsed"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="nlAnswer" class="nl-answer hidden">
+                    <h3>Natural Language Answer</h3>
+                    <p id="nlAnswerText"></p>
+                </div>
+                <div class="table-container">
+                    <table id="resultsTable">
+                        <thead id="tableHead"></thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+                <div id="resultCount" class="result-count"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Docker Model Runner & MariaDB</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+    <script>
+        const form = document.getElementById('queryForm');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
+        const results = document.getElementById('results');
+        const submitBtn = document.getElementById('submitBtn');
+        const modelSelect = document.getElementById('modelSelect');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadModels();
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const queryInput = document.getElementById('queryInput');
+            const query = queryInput.value.trim();
+
+            if (!query) {
+                showError('Please enter a question');
+                return;
+            }
+            if (!modelSelect.value) {
+                showError('Please select a model');
+                return;
+            }
+
+            // Hide previous results and errors
+            hideAll();
+            showLoading();
+
+            try {
+                const response = await fetch('/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        model: modelSelect.value
+                    })
+                });
+
+                const data = await response.json();
+
+                hideLoading();
+
+                if (data.error) {
+                    showError(data.error);
+                } else {
+                    showResults(data);
+                }
+            } catch (err) {
+                hideLoading();
+                showError('Network error: ' + err.message);
+            }
+        });
+
+        async function loadModels() {
+            try {
+                const response = await fetch('/api/models');
+                const data = await response.json();
+                const models = data.models || [];
+                modelSelect.innerHTML = '';
+
+                if (models.length === 0) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'No models available';
+                    modelSelect.appendChild(option);
+                    modelSelect.disabled = true;
+                    submitBtn.disabled = true;
+                    showError('No LLM models are available. Please check the backend configuration.');
+                    return;
+                }
+
+                models.forEach((model, index) => {
+                    const option = document.createElement('option');
+                    option.value = model;
+                    option.textContent = model;
+                    if (index === 0) {
+                        option.selected = true;
+                    }
+                    modelSelect.appendChild(option);
+                });
+
+                modelSelect.disabled = false;
+                submitBtn.disabled = false;
+            } catch (err) {
+                modelSelect.innerHTML = '';
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Failed to load models';
+                modelSelect.appendChild(option);
+                modelSelect.disabled = true;
+                submitBtn.disabled = true;
+                showError('Failed to load model list: ' + err.message);
+            }
+        }
+
+        function showLoading() {
+            loading.classList.remove('hidden');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+        }
+
+        function hideLoading() {
+            loading.classList.add('hidden');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Query Database';
+        }
+
+        function showError(message) {
+            error.textContent = 'Error: ' + message;
+            error.classList.remove('hidden');
+        }
+
+        function hideAll() {
+            error.classList.add('hidden');
+            results.classList.add('hidden');
+        }
+
+        function showResults(data) {
+            // Show natural language query, SQL, and model
+            document.getElementById('naturalQuery').textContent = data.natural_language_query;
+            document.getElementById('sqlQuery').textContent = data.sql_query;
+            document.getElementById('modelUsed').textContent = data.model || 'unknown';
+            const nlAnswerBlock = document.getElementById('nlAnswer');
+            const nlAnswerText = document.getElementById('nlAnswerText');
+            if (data.natural_language_answer) {
+                nlAnswerText.textContent = data.natural_language_answer;
+                nlAnswerBlock.classList.remove('hidden');
+            } else {
+                nlAnswerText.textContent = '';
+                nlAnswerBlock.classList.add('hidden');
+            }
+
+            // Display results table
+            const tableHead = document.getElementById('tableHead');
+            const tableBody = document.getElementById('tableBody');
+            const resultCount = document.getElementById('resultCount');
+
+            // Clear previous results
+            tableHead.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            if (data.results && data.results.length > 0) {
+                // Create table headers from first result
+                const firstRow = data.results[0];
+                const headerRow = document.createElement('tr');
+                Object.keys(firstRow).forEach(key => {
+                    const th = document.createElement('th');
+                    th.textContent = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    headerRow.appendChild(th);
+                });
+                tableHead.appendChild(headerRow);
+
+                // Create table rows
+                data.results.forEach(row => {
+                    const tr = document.createElement('tr');
+                    Object.values(row).forEach(value => {
+                        const td = document.createElement('td');
+                        td.textContent = value !== null ? value : '';
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                resultCount.textContent = `Found ${data.results.length} result(s)`;
+            } else {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.colSpan = 100;
+                td.textContent = 'No results found';
+                td.style.textAlign = 'center';
+                td.style.padding = '20px';
+                tr.appendChild(td);
+                tableBody.appendChild(tr);
+                resultCount.textContent = 'No results found';
+            }
+
+            results.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
+

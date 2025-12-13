@@ -1,13 +1,13 @@
 services:
   grafana:
-    image: docbuc/grafana:4
+    image: docbuc/grafana:5
     restart: always
     ports:
       - 3000:3000
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=geheim
   telegraf:
-    image: docbuc/telegraf:4
+    image: docbuc/telegraf:5
     restart: always
     environment:
       - INFLUXDB_TOKEN=gahPae6deivo0aenooy7thoheewaex9eeNgaePah8dee5io6neewooSe3bemu9gi

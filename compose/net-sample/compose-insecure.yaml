@@ -1,0 +1,12 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "8088:8088"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "5555:5555"
