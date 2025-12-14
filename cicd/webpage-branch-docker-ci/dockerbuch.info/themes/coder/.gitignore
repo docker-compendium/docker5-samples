@@ -1,2 +1,6 @@
+.idea
 **/themes/
-demo/
+exampleSite/public/
+exampleSite/resources/
+*.lock
+public

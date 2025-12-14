@@ -15,14 +15,25 @@ theme = "coder"
     name = "Github"
     weight = 1
     url = "https://github.com/docbuc/"
+    icon = "fa fa-github"
 [[params.social]]
     name = "Amazon"
     weight = 2
+    icon = "fa fa-amazon"
     url = "https://www.amazon.de/Docker-Praxisbuch-Entwickler-DevOps-Teams-Windows/dp/3836261766/"
 [[params.social]]
     name = "Rheinwerk"
     weight = 2
     url = "https://www.rheinwerk-verlag.de/docker_4599/"
+[[params.social]]
+    name = "🐘 bö"
+    weight = 3
+    url = "https://webmapping.social/@bernd"
+    rel = "me"
+[[params.social]]
+    name = "🐘 mk"
+    weight = 3
+    url = "https://home.social/@michaelkofler"
 
 # [[menu.main]]
 #   name = "Blog"

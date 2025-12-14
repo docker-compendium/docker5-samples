@@ -2,7 +2,11 @@
 draft = true
 date = {{ .Date }}
 title = ""
-slug = "" 
+description = ""
+slug = ""
+authors = []
 tags = []
 categories = []
+externalLink = ""
+series = []
 +++

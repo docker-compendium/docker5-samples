@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Inhalt · Docker
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Bernd Öggl, Michael Kofler">
+<meta name="description" content="Das kompakte Buch richtet sich an Software-Entwickler. Es ist in drei Teile gegliedert:
+
+
+Teil I gibt eine Einführung in Docker und stellt seine Werkzeuge und Syntax vor. Hier finden Sie unter anderem eine Referenz aller wichtigen docker-Kommandos sowie eine Beschreibung der Syntax für Dockerfile und docker-compose.yml.
+
+
+Teil II stellt den Werkzeugkasten vor, aus dessen Komponenten Sie Docker-Applikationen zusammensetzen können. Dazu zählen unter anderem das schlanke Alpine Linux, die Webserver Apache und Nginx, Node.js und HAProxy, die Programmiersprachen JavaScript, Java, PHP, Ruby, Python und Swift, die Datenbanksysteme MariaDB/MySQL, MongoDB, Redis und PostgreSQL sowie komplette Webapplikationen wie WordPress, Joomla oder Nextcloud.">
+<meta name="keywords" content="">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Inhalt">
+  <meta name="twitter:description" content="Das kompakte Buch richtet sich an Software-Entwickler. Es ist in drei Teile gegliedert:
+Teil I gibt eine Einführung in Docker und stellt seine Werkzeuge und Syntax vor. Hier finden Sie unter anderem eine Referenz aller wichtigen docker-Kommandos sowie eine Beschreibung der Syntax für Dockerfile und docker-compose.yml.
+Teil II stellt den Werkzeugkasten vor, aus dessen Komponenten Sie Docker-Applikationen zusammensetzen können. Dazu zählen unter anderem das schlanke Alpine Linux, die Webserver Apache und Nginx, Node.js und HAProxy, die Programmiersprachen JavaScript, Java, PHP, Ruby, Python und Swift, die Datenbanksysteme MariaDB/MySQL, MongoDB, Redis und PostgreSQL sowie komplette Webapplikationen wie WordPress, Joomla oder Nextcloud.">
+
+<meta property="og:url" content="/inhalt/">
+  <meta property="og:site_name" content="Docker">
+  <meta property="og:title" content="Inhalt">
+  <meta property="og:description" content="Das kompakte Buch richtet sich an Software-Entwickler. Es ist in drei Teile gegliedert:
+Teil I gibt eine Einführung in Docker und stellt seine Werkzeuge und Syntax vor. Hier finden Sie unter anderem eine Referenz aller wichtigen docker-Kommandos sowie eine Beschreibung der Syntax für Dockerfile und docker-compose.yml.
+Teil II stellt den Werkzeugkasten vor, aus dessen Komponenten Sie Docker-Applikationen zusammensetzen können. Dazu zählen unter anderem das schlanke Alpine Linux, die Webserver Apache und Nginx, Node.js und HAProxy, die Programmiersprachen JavaScript, Java, PHP, Ruby, Python und Swift, die Datenbanksysteme MariaDB/MySQL, MongoDB, Redis und PostgreSQL sowie komplette Webapplikationen wie WordPress, Joomla oder Nextcloud.">
+  <meta property="og:locale" content="de">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2021-09-07T12:46:34+02:00">
+    <meta property="article:modified_time" content="2021-09-07T12:46:34+02:00">
+
+
+
+
+<link rel="canonical" href="/inhalt/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6445a802b9389c9660e1b07b724dcf5718b1065ed2d71b4eeaf981cc7cc5fc46.css" integrity="sha256-ZEWoArk4nJZg4bB7ck3PVxixBl7S1xtO6vmBzHzF/EY=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="/">
+      Docker
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/inhalt/">Inhalt</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="https://kofler.info/buecher/docker/errata/">Errata</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">Über das Buch</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container page">
+  <article>
+    <header>
+      <h1 class="title">
+        <a class="title-link" href="/inhalt/">
+          Inhalt
+        </a>
+      </h1>
+    </header>
+
+    <p>Das kompakte Buch richtet sich an Software-Entwickler. Es ist in drei Teile gegliedert:</p>
+<ul>
+<li>
+<p>Teil I gibt eine Einführung in Docker und stellt seine Werkzeuge und Syntax vor. Hier finden Sie unter anderem eine Referenz aller wichtigen docker-Kommandos sowie eine Beschreibung der Syntax für Dockerfile und docker-compose.yml.</p>
+</li>
+<li>
+<p>Teil II stellt den Werkzeugkasten vor, aus dessen Komponenten Sie Docker-Applikationen zusammensetzen können. Dazu zählen unter anderem das schlanke Alpine Linux, die Webserver Apache und Nginx, Node.js und HAProxy, die Programmiersprachen JavaScript, Java, PHP, Ruby, Python und Swift, die Datenbanksysteme MariaDB/MySQL, MongoDB, Redis und PostgreSQL sowie komplette Webapplikationen wie WordPress, Joomla oder Nextcloud.</p>
+</li>
+<li>
+<p>Um Docker in der Praxis geht es schließlich in Teil III: Konkrete Projekte illustrieren, wie Docker in der Praxis effizient und zielführend eingesetzt wird:</p>
+<ul>
+<li>Realisierung einer modernen, skalierbaren Webapplikation mit Docker (Vue.js + Node.js + MongoDB + Redis)</li>
+<li>Visualisierung und Monitoring mit Grafana</li>
+<li>Umbau vorhandener Software-Projekte in Docker-Projekte</li>
+<li>Verwendung von gitlab</li>
+<li>Continuous Integration (CI) und Continuous Deployment (CD)</li>
+<li>Sicherheit</li>
+<li>Cloud (Docker Swarm und Kubernetes im Zusammenspiel mit AWS, Azure und anderen Cloud-Angeboten)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Neu in der 3. Auflage</strong>: Für diese Auflage haben wir das Buch vollständig aktualisiert und die Einführungskapitel übersichtlicher strukturiert. Wichtige inhaltliche Neuerungen sind:</p>
+<ul>
+<li>Rootless Docker: Docker ohne root-Rechte verwenden</li>
+<li>CPU-Architekturen: Docker auf Apple-Computern mit ARM-Prozessoren</li>
+<li>Pull-Limit: Docker-Hub-Limits beim Image-Zugriff umgehen</li>
+<li>Container automatisch starten: restart-Option und systemd</li>
+<li>neue GUI-Tools: Docker Desktop, VSCode, Portainer</li>
+<li>Traefik: ein Proxy-Server speziell für Container-Anwendungen</li>
+</ul>
+<p>Schauen Sie sich auch die <a href="https://s3-eu-west-1.amazonaws.com/gxmedia.galileo-press.de/leseproben/5393/leseprobe_rheinwerk_docker.pdf"  class="external-link" target="_blank" rel="noopener">Leseprobe</a> (PDF) an.</p>
+
+  </article>
+</section>
+
+  
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2025
+     Bernd Öggl, Michael Kofler 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

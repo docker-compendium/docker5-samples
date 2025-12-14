@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker</title>
+    <link>/</link>
+    <description>Recent content on Docker</description>
+    <generator>Hugo</generator>
+    <language>de</language>
+    <lastBuildDate>Tue, 07 Sep 2021 12:46:34 +0200</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Inhalt</title>
+      <link>/inhalt/</link>
+      <pubDate>Tue, 07 Sep 2021 12:46:34 +0200</pubDate>
+      <guid>/inhalt/</guid>
+      <description>&lt;p&gt;Das kompakte Buch richtet sich an Software-Entwickler. Es ist in drei Teile gegliedert:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Teil I gibt eine Einführung in Docker und stellt seine Werkzeuge und Syntax vor. Hier finden Sie unter anderem eine Referenz aller wichtigen docker-Kommandos sowie eine Beschreibung der Syntax für Dockerfile und docker-compose.yml.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Teil II stellt den Werkzeugkasten vor, aus dessen Komponenten Sie Docker-Applikationen zusammensetzen können. Dazu zählen unter anderem das schlanke Alpine Linux, die Webserver Apache und Nginx, Node.js und HAProxy, die Programmiersprachen JavaScript, Java, PHP, Ruby, Python und Swift, die Datenbanksysteme MariaDB/MySQL, MongoDB, Redis und PostgreSQL sowie komplette Webapplikationen wie WordPress, Joomla oder Nextcloud.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Über das Buch</title>
+      <link>/about/</link>
+      <pubDate>Tue, 07 Sep 2021 10:46:34 +0200</pubDate>
+      <guid>/about/</guid>
+      <description>&lt;h2 id=&#34;docker-3-auflage&#34;&gt;&#xA;  Docker (3. Auflage)&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#docker-3-auflage&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;h3 id=&#34;das-praxisbuch-für-entwickler-und-devops-teams&#34;&gt;&#xA;  Das Praxisbuch für Entwickler und DevOps-Teams&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#das-praxisbuch-f%c3%bcr-entwickler-und-devops-teams&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;p&gt;von &lt;a href=&#34;https://webman.at&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bernd Öggl&lt;/a&gt;, &lt;a href=&#34;https://kofler.info&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Michael Kofler&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;496 Seiten, 3. Auflage 2021, gebunden&#xA;Rheinwerk Computing, ISBN 78-3-8362-8634-3&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.rheinwerk-verlag.de/5393/?GPP=kofler&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Rheinwerk&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;figure class=&#34;grayscale&#34;&gt;&lt;img src=&#34;/images/docker3.jpg&#34;&#xA;    alt=&#34;Docker&#34;&gt;&#xA;&lt;/figure&gt;</description>
+    </item>
+  </channel>
+</rss>
