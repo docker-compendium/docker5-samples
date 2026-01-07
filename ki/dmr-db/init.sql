@@ -88,7 +88,8 @@ INSERT INTO actors (name, birth_year) VALUES
 ('Zoe Saldana', 1978),
 ('Mahershala Ali', 1974),
 ('Florence Pugh', 1996),
-('Pedro Pascal', 1975);
+('Pedro Pascal', 1975),
+('John Travolta', 1954);
 
 -- Insert movies
 INSERT INTO movies (title, director, release_year, genre_id, rating, description) VALUES
@@ -213,7 +214,7 @@ INSERT INTO movie_actors (movie_id, actor_id, role) VALUES
 (1, 3, 'Ellis Boyd "Red" Redding'),
 (2, 5, 'Vito Corleone'),
 (3, 10, 'Bruce Wayne / Batman'),
-(4, 6, 'Vincent Vega'),
+(4, 31, 'Vincent Vega'),
 (5, 1, 'Forrest Gump'),
 (6, 2, 'Dom Cobb'),
 (7, 10, 'Thomas Anderson / Neo'),
